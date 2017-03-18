@@ -7,3 +7,7 @@ public extension Array {
         return self[index]
     }
 }
+
+public func asyncDelay(seconds: TimeInterval, completion: @escaping () -> Void) {
+    DispatchQueue.global().asyncAfter(deadline: .now() + seconds, execute: completion)
+}
