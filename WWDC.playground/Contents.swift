@@ -38,14 +38,17 @@ let elementSize = 10
 let horizontalElements = sceneWidth/elementSize
 
 
-//This function start the spawning of the letters over the x axys
-func spawn(xPosition: Int = (Int(arc4random_uniform(UInt32(horizontalElements))) * 10 + (elementSize / 2)),yPosition: Int = (sceneHeight - 11)) {
-    
+//This function start the spawning of the letters
+//Default x: Random position over the x axys
+//Default y: sceneHeight - elementSize - 5
+func spawn(xPosition: Int = (Int(arc4random_uniform(UInt32(horizontalElements))) * elementSize + (elementSize / 2)), yPosition: Int = (sceneHeight - (3 * elementSize) / 2 ))
+{
     let letter = MatrixLabel(size: elementSize, position: CGPoint(x: xPosition, y: yPosition))
     scene.addChild(letter)
-    if Int(letter.position.y) - 11 > 0 {
+    //Avoid to spawn useless nodes
+    if Int(letter.position.y) - (3 * elementSize) / 2  > 0 {
         asyncDelay(seconds: 0.1, completion: {
-            spawn(xPosition: xPosition, yPosition: yPosition - 11)
+            spawn(xPosition: xPosition, yPosition: yPosition - (3 * elementSize) / 2)
         })
     }
     letter.startToFade()

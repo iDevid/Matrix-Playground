@@ -9,9 +9,9 @@ public class MatrixLabel: SKLabelNode {
     let colorValues = [NSColor(red: 0, green: 255, blue: 0, alpha: 0.9),
                        NSColor(red: 0, green: 255, blue: 0, alpha: 0.8),
                        NSColor(red: 0, green: 255, blue: 0, alpha: 0.6),
-                       NSColor(red: 100, green: 250, blue: 100, alpha: 0.9),
-                       NSColor(red: 150, green: 250, blue: 150, alpha: 0.7),
-                       NSColor(red: 255, green: 255, blue: 255, alpha: 0.9)]
+                       NSColor(red: 50, green: 250, blue: 50, alpha: 0.9),
+                       NSColor(red: 50, green: 250, blue: 50, alpha: 0.7),
+                       NSColor(red: 50, green: 255, blue: 50, alpha: 0.9)]
     
     public init (size: Int, position: CGPoint) {
         super.init()
