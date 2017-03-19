@@ -20,6 +20,7 @@ view.showsPhysics = true
 view.showsNodeCount = true
 
 let scene = SKScene(size: CGSize(width: sceneWidth, height: sceneHeight))
+scene.backgroundColor = NSColor.black
 scene.scaleMode = SKSceneScaleMode.aspectFill
 view.presentScene(scene)
 
@@ -38,36 +39,25 @@ let horizontalElements = sceneWidth/elementSize
 
 
 //This function start the spawning of the letters over the x axys
-func startSpawning() {
-    let randomXPos = Int(arc4random_uniform(UInt32(horizontalElements))) * 10 + (elementSize / 2)
-    let letter = MatrixLabel(size: elementSize, position: CGPoint(x: randomXPos, y: sceneHeight - 11))
-    scene.addChild(letter)
-    asyncDelay(seconds: 0.2, completion: {
-        spawnBehind(xPosition: randomXPos, yPosition: Int(letter.position.y) - 11)
-    })
+func spawn(xPosition: Int = (Int(arc4random_uniform(UInt32(horizontalElements))) * 10 + (elementSize / 2)),yPosition: Int = (sceneHeight - 11)) {
     
-}
-
-
-func spawnBehind(xPosition: Int, yPosition: Int) {
     let letter = MatrixLabel(size: elementSize, position: CGPoint(x: xPosition, y: yPosition))
     scene.addChild(letter)
-    // If the letter is behind the scene don't spawn anymore
     if Int(letter.position.y) - 11 > 0 {
-        asyncDelay(seconds: 0.2, completion: {
-            spawnBehind(xPosition: xPosition, yPosition: Int(letter.position.y) - 11)
+        asyncDelay(seconds: 0.1, completion: {
+            spawn(xPosition: xPosition, yPosition: yPosition - 11)
         })
     }
+    letter.startToFade()
 }
-
 
 scene.run(
     SKAction.repeat(
         SKAction.sequence([
-            SKAction.run(startSpawning),
-            SKAction.wait(forDuration: 0.2)
+            SKAction.run {
+                spawn()
+            },
+            SKAction.wait(forDuration: 0.1)
             ]),
-        count: 1000)
+        count: 200)
 )
-
-print("ciao")
